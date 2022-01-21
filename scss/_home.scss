@@ -7,8 +7,8 @@
 }
 
 ::placeholder {
-    color: var(--color-gray);
-    opacity: 1;
+  color: var(--color-gray);
+  opacity: 1;
 }
 
 body {
@@ -63,10 +63,13 @@ body {
       }
 
       .weather__condition {
-        img {
-          width: 45px;
-          height: 45px;
-        }
+
+          img {
+            margin-top: -1rem;
+            margin-left: -.5rem;
+            width: 70px;
+            height: 70px;
+          }
       }
     }
   }
@@ -80,7 +83,7 @@ body {
     backdrop-filter: blur(54px);
 
     hr {
-      color: var(--color-gray);
+      border: 1px solid var(--color-dark-gray);
       margin-bottom: 3rem;
     }
 
@@ -92,7 +95,7 @@ body {
         padding: 0.5em;
         background: transparent;
         border: none;
-        border-bottom: 1px solid var(--color-gray);
+        border-bottom: 1px solid var(--color-dark-gray);
         outline: none;
         color: var(--color-gray);
         width: 70%;
@@ -106,6 +109,7 @@ body {
         background: var(--color-dark);
         border: 1px solid var(--color-gray);
         outline: none;
+        cursor: pointer;
       }
     }
 
@@ -113,6 +117,7 @@ body {
       margin-bottom: 3rem;
 
       li {
+        font-weight: 300;
         list-style: none;
         color: var(--color-dark-gray);
         transition: color 0.5s ease-in-out;
@@ -123,7 +128,7 @@ body {
         }
 
         &:hover {
-            color: var(--color-gray);
+          color: var(--color-gray);
         }
       }
     }
@@ -137,6 +142,7 @@ body {
           justify-content: space-between;
           list-style: none;
           cursor: pointer;
+          font-weight: 300;
 
           color: var(--color-gray);
 
@@ -145,6 +151,14 @@ body {
           }
         }
       }
+    }
+
+    .further__details {
+        display: flex;
+        justify-content: space-between;
+        font-weight: 300;
+        font-size: .9rem;
+        margin-top: 2.5rem;
     }
   }
 }

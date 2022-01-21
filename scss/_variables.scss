@@ -5,3 +5,19 @@
     --color-dark-gray: #a8a8a8;
     --font-family: 'Ubuntu', sans-serif;;
 }
+
+
+// 
+// 
+
+
+
+// const fetchData = () => {
+//   return fetch(`${url}?key=${apiKey}&q=${location}`, {})
+//     .then((response) => {
+//       if (response.status === 200) {
+//         console.log(response.json());
+//       }
+//     })
+//     .catch((err) => console.log("Whats happening?"));
+// };

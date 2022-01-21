@@ -18,7 +18,9 @@
             <p class="date">Date goes here</p>
           </div>
           <div class="weather__condition">
-            <img src="./Imgs/cloud.png" alt="" class="weather__condition-img" />
+            <div class="img">
+              <img src="./Imgs/119.png" alt="" class="weather__condition-img" />
+            </div>
             <p class="weather__condition-des">Cloudy</p>
           </div>
         </section>
@@ -34,7 +36,7 @@
             placeholder="Find Location"
             autocomplete="disabled"
           />
-          <button>Search</button>
+          <button id="btn">Search</button>
         </form>
 
         <!-- Previous Searches -->
@@ -52,16 +54,22 @@
         <div class="weather__details">
           <ul>
             <li>
-              <span class="weather__condition">Cloudy</span><span>86%</span>
+              <span>Cloudy</span
+              ><span class="weather__condition">86%</span>
             </li>
             <li>
-              <span class="weather__moisture">Humidity</span><span>62%</span>
+              <span>Humidity</span><span class="weather__moisture">62%</span>
             </li>
-            <li><span class="wind__speed">Wind</span><span>8km/h</span></li>
+            <li><span>Wind</span><span class="wind__speed">8km/h</span></li>
           </ul>
         </div>
 
         <hr />
+
+        <div class="further__details">
+          <span class="latitude">Latitude 38</span>
+          <span class="longitude">Longitude 95.1</span>
+        </div>
       </div>
     </div>
     <script src="./main.js"></script>

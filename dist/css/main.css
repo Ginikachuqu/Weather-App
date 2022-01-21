@@ -57,8 +57,10 @@ body {
   font-size: 1rem;
 }
 .container .info__left .weather__info .weather__condition img {
-  width: 45px;
-  height: 45px;
+  margin-top: -1rem;
+  margin-left: -0.5rem;
+  width: 70px;
+  height: 70px;
 }
 .container .info__right {
   min-height: 100%;
@@ -69,7 +71,7 @@ body {
   backdrop-filter: blur(54px);
 }
 .container .info__right hr {
-  color: var(--color-gray);
+  border: 1px solid var(--color-dark-gray);
   margin-bottom: 3rem;
 }
 .container .info__right form {
@@ -80,7 +82,7 @@ body {
   padding: 0.5em;
   background: transparent;
   border: none;
-  border-bottom: 1px solid var(--color-gray);
+  border-bottom: 1px solid var(--color-dark-gray);
   outline: none;
   color: var(--color-gray);
   width: 70%;
@@ -92,11 +94,13 @@ body {
   background: var(--color-dark);
   border: 1px solid var(--color-gray);
   outline: none;
+  cursor: pointer;
 }
 .container .info__right .previous {
   margin-bottom: 3rem;
 }
 .container .info__right .previous li {
+  font-weight: 300;
   list-style: none;
   color: var(--color-dark-gray);
   transition: color 0.5s ease-in-out;
@@ -116,10 +120,18 @@ body {
   justify-content: space-between;
   list-style: none;
   cursor: pointer;
+  font-weight: 300;
   color: var(--color-gray);
 }
 .container .info__right .weather__details ul li:not(:last-of-type) {
   margin-bottom: 0.8rem;
+}
+.container .info__right .further__details {
+  display: flex;
+  justify-content: space-between;
+  font-weight: 300;
+  font-size: 0.9rem;
+  margin-top: 2.5rem;
 }
 
 :root {
