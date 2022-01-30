@@ -1,11 +1,11 @@
-const apiKey = "6129ecbd2d564830bae202348221801";
+const apiKey = config.MY_KEY;
 const url = "http://api.weatherapi.com/v1/current.json";
 const cityName = document.querySelector(".city__name");
 const date = document.querySelector(".date");
 const weatherDegree = document.querySelector(".degree");
 const weatherConditionImage = document.querySelector(".weather__condition-img");
 const weatherDescription = document.querySelector(".weather__condition-des");
-const searchField = document.getElementById("search").value;
+const searchField = document.getElementById("search");
 const btn = document.querySelector("#btn");
 const previousSearchStrings = document.querySelector(".previous");
 const weatherConditon = document.querySelector(".weather__condition");
@@ -14,6 +14,25 @@ const windSpeed = document.querySelector(".wind__speed");
 const latitude = document.querySelector(".latitude");
 const longitude = document.querySelector(".longitude");
 const place = "Lagos";
+
+// Search Array
+let searchQueries = [];
+// Unique queries
+let uniqueQueries = []
+
+// Random ID generator
+// dec2hex :: Integer -> String
+// i.e. 0-255 -> '00'-'ff'
+function dec2hex(dec) {
+  return dec.toString(16).padStart(2, "0");
+}
+
+// generateId :: Integer -> String
+function generateId(len) {
+  var arr = new Uint8Array((len || 40) / 2);
+  window.crypto.getRandomValues(arr);
+  return Array.from(arr, dec2hex).join("");
+}
 
 const fetchData = () => {
   return fetch(`${url}?key=${apiKey}&q=${place}`, {})
@@ -31,6 +50,41 @@ const fetchData = () => {
     .catch((err) => console.log("Whats happening?"));
 };
 
-const allData = fetchData()
+function saveTerm(term) {
+  // Save search term to local storage
+  localStorage.setItem(`${generateId(10)}`, JSON.stringify(term));
+}
 
-console.log(allData)
+function getSavedTerms() {
+  let items = localStorage.getItem() !== null ? JSON.stringify() : [];
+
+  return items;
+}
+
+btn.addEventListener("click", (e) => {
+  e.preventDefault();
+
+  if (searchField.value === "") {
+    return;
+  } else {
+    // Add recent search term to array
+    searchQueries.push(searchField.value);
+    
+    searchQueries.forEach((query) => {
+        if (!uniqueQueries.includes(query)) {
+            uniqueQueries.unshift(query)
+        }
+    })
+
+    // Save to local storage
+    uniqueQueries.forEach((query) => {
+      saveTerm(query);
+    });
+
+    console.log(searchQueries);
+    console.log(uniqueQueries);
+  }
+});
+
+// console.log(getSavedTerms())
+// localStorage.clear()
