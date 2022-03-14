@@ -1,4 +1,4 @@
-const apiKey = config.MY_KEY;
+// const apiKey = config.MY_KEY;
 const url = "http://api.weatherapi.com/v1/current.json";
 const cityName = document.querySelector(".city__name");
 const date = document.querySelector(".date");
@@ -16,9 +16,7 @@ const longitude = document.querySelector(".longitude");
 const place = "Lagos";
 
 // Search Array
-let searchQueries = [];
-// Unique queries
-let uniqueQueries = []
+let searchQueries = getSavedTerms();
 
 // Random ID generator
 // dec2hex :: Integer -> String
@@ -29,36 +27,52 @@ function dec2hex(dec) {
 
 // generateId :: Integer -> String
 function generateId(len) {
-  var arr = new Uint8Array((len || 40) / 2);
+  let arr = new Uint8Array((len || 40) / 2);
   window.crypto.getRandomValues(arr);
   return Array.from(arr, dec2hex).join("");
 }
 
-const fetchData = () => {
-  return fetch(`${url}?key=${apiKey}&q=${place}`, {})
-    .then((response) => {
-      if (response.status === 200) {
-        return response.json();
-      }
-    })
-    .then((data) => {
-      return data;
-    })
-    .then((some) => {
-      return some.current;
-    })
-    .catch((err) => console.log("Whats happening?"));
-};
+// const fetchData = () => {
+//   return fetch(`${url}?key=${apiKey}&q=${place}`, {})
+//     .then((response) => {
+//       if (response.status === 200) {
+//         return response.json();
+//       }
+//     })
+//     .then((data) => {
+//       return data;
+//     })
+//     .then((some) => {
+//       return some.current;
+//     })
+//     .catch((err) => console.log("Whats happening?"));
+// };
 
-function saveTerm(term) {
+function saveTerm(query) {
+  const queries = localStorage.getItem("queries")
+
+  try {
+    return queries ? JSON.parse(queries, (key, value) => {
+      if (query.includes(value)) {
+        throw new Error
+      }
+    }) : [];
+  } catch (error) {
+    return []
+  }
   // Save search term to local storage
-  localStorage.setItem(`${generateId(10)}`, JSON.stringify(term));
+  // localStorage.setItem("queries", JSON.stringify(query));
 }
 
 function getSavedTerms() {
-  let items = localStorage.getItem() !== null ? JSON.stringify() : [];
+  const queries = localStorage.getItem("queries");
 
-  return items;
+  try {
+    return queries ? JSON.parse(queries) : [];
+  } catch (e) {
+    return [];
+  }
+
 }
 
 btn.addEventListener("click", (e) => {
@@ -68,21 +82,15 @@ btn.addEventListener("click", (e) => {
     return;
   } else {
     // Add recent search term to array
-    searchQueries.push(searchField.value);
-    
-    searchQueries.forEach((query) => {
-        if (!uniqueQueries.includes(query)) {
-            uniqueQueries.unshift(query)
-        }
-    })
-
-    // Save to local storage
-    uniqueQueries.forEach((query) => {
-      saveTerm(query);
+    const id = generateId(10);
+    searchQueries.push({
+      id: id,
+      searchTerm: searchField.value,
     });
 
-    console.log(searchQueries);
-    console.log(uniqueQueries);
+    saveTerm(searchQueries)
+    
+    console.log(searchQueries)
   }
 });
 
