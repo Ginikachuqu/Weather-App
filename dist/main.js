@@ -49,17 +49,22 @@ function generateId(len) {
 // };
 
 function saveTerm(query) {
-  const queries = localStorage.getItem("queries")
+  const queries = localStorage.getItem("queries");
+  const parsedQueries = queries ? JSON.parse(queries) : [];
 
-  try {
-    return queries ? JSON.parse(queries, (key, value) => {
-      if (query.includes(value)) {
-        throw new Error
-      }
-    }) : [];
-  } catch (error) {
-    return []
-  }
+  let quer = [...query, ...parsedQueries];
+  localStorage.setItem("queries", JSON.stringify(quer));
+
+  // try {
+  // return queries ? JSON.parse(queries, (key, value) => {
+  //   if (query.includes(value)) {
+  //     throw new Error
+  //   }
+  // })
+  // }) : [];
+  // } catch (error) {
+  //   return []
+  // }
   // Save search term to local storage
   // localStorage.setItem("queries", JSON.stringify(query));
 }
@@ -67,20 +72,13 @@ function saveTerm(query) {
 function getSavedTerms() {
   const queries = localStorage.getItem("queries");
 
-  try {
-    return queries ? JSON.parse(queries) : [];
-  } catch (e) {
-    return [];
-  }
-
+  return queries ? JSON.parse(queries) : [];
 }
 
 btn.addEventListener("click", (e) => {
   e.preventDefault();
 
-  if (searchField.value === "") {
-    return;
-  } else {
+  if (searchField.value) {
     // Add recent search term to array
     const id = generateId(10);
     searchQueries.push({
@@ -88,11 +86,9 @@ btn.addEventListener("click", (e) => {
       searchTerm: searchField.value,
     });
 
-    saveTerm(searchQueries)
-    
-    console.log(searchQueries)
+    saveTerm(searchQueries);
   }
 });
 
-// console.log(getSavedTerms())
+console.log(getSavedTerms(), "getSavedTerms");
 // localStorage.clear()
